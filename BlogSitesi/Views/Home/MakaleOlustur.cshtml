@@ -1,0 +1,32 @@
+﻿@model BlogSitesi.Data.Makale
+
+<form method="post">
+    Konu Seç
+    <div class="mb-2">
+        @foreach (var item in (List<BlogSitesi.Data.Konu>)ViewBag.Konular)
+        {
+            
+          <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+              <label class="d-flex align-items-center">
+                  <input type="checkbox" name="Konular" value="@item.Id" class="me-1" />
+                  @item.Ad
+              </label>
+          </div>
+        }
+    </div>
+    <div class="mb-2">
+        <label asp-for="Baslik">Başlık</label>
+        <input asp-for="Baslik" type="text" class="form-control" />
+        <span asp-validation-for="Baslik"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="Icerik">İçerik</label>
+        <textarea asp-for="Icerik" rows="5" class="form-control" placeholder="İçerik girin..."></textarea>
+        <span asp-validation-for="Icerik"></span>
+    </div>
+    <button class="btn btn-primary">Makale Oluştur</button>
+</form>
+
+
+
+

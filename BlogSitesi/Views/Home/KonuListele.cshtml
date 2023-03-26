@@ -1,0 +1,18 @@
+﻿@model List<BlogSitesi.Data.Konu>
+
+
+
+
+<div class="tag_section layout_padding">
+    <div class="container">
+        <h1 class="tag_taital">Konular</h1>
+        <div class="tag_bt">
+            <ul>
+                @foreach (var item in Model)
+                {
+                    <li><a asp-action="MakaleListele" asp-route-id="@item.Id">@item.Ad</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

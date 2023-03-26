@@ -1,0 +1,80 @@
+﻿@using BlogSitesi.Data
+@model List<Makale>
+@inject Microsoft.AspNetCore.Identity.UserManager<Kullanici> UserManager
+
+@{
+    var kullanici = await UserManager.GetUserAsync(User);
+}
+
+<!-- about section start -->
+<div class="about_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-sm-12">
+                @foreach (var item in Model)
+                {
+                    <div class="about_section layout_padding card mt-4 card-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 col-sm-12">
+                                    <p class="post_text">@(item.Tarih.ToString("dd/MM/yyyy"))</p>
+                                    <a asp-action="MakaleOku" asp-route-id="@item.Id">
+                                        <h2 class="most_text">@item.Baslik<br></h2>
+                                    </a>
+                                    <p class="lorem_text">@item.Icerik</p>
+                                    <div class="social_icon_main">
+                                        <div class="social_icon">
+                                            <ul>
+                                                <li><a href="#"><img src="~/template/images/fb-icon.png"></a></li>
+                                                <li><a href="#"><img src="~/template/images/twitter-icon.png"></a></li>
+                                                <li><a href="#"><img src="~/template/images/instagram-icon.png"></a></li>
+                                                @foreach (var konu in item.Konular)
+                                                {
+                                                    <li><a href="#" class="badge">#@konu.Ad</a></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-12">
+                                    <div class="about_main">
+                                        <h1 class="follow_text">CONNECT & FOLLOW</h1>
+                                        <div class="follow_icon">
+                                            <ul>
+                                                <li><a href="#"><img src="~/template/images/fb-icon-1.png"></a></li>
+                                                <li><a href="#"><img src="~/template/images/twitter-icon-1.png"></a></li>
+                                                <li><a href="#"><img src="~/template/images/linkedin-icon-1.png"></a></li>
+                                                <li><a href="#"><img src="~/template/images/instagram-icon-1.png"></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            @if (kullanici != null)
+            {
+                <div class="col-lg-3 col-sm-12">
+                    <div class="image_5"><img src="~/img/@kullanici.Resim" height="200" width="250"></div>
+                    <h1 class="about_taital">@kullanici.AdSoyad</h1>
+                    <p class="about_text">@kullanici.Email</p>
+                    <p class="about_text">@kullanici.PhoneNumber</p>
+                    <ul class="list">
+                        @foreach (var item in Model.OrderBy(x => x.Tarih))
+                        {
+                            if (item.KullaniciId == kullanici.Id)
+                            {
+                                <li class="about_text">-@item.Baslik</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- about section end -->
+<!-- contact section start -->
